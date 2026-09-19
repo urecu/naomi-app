@@ -1,0 +1,9 @@
+{
+  "appId": "com.flaviusstanciu.naominails",
+  "appName": "Naomi Nails",
+  "webDir": "www",
+  "server": {
+    "url": "https://naomistanciu.ro/",
+    "cleartext": false
+  }
+}

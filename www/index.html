@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Naomi Stanciu Nails</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--cream:#FDF5F7;--rose:#C4788A;--rose-light:#FEF0F3;--dark:#1a1a1a;--muted:#8A6070;--border:#EDD6DC;--white:#FFFFFF;--green:#6B9E82;--red:#D97070;--gold-light:#F9E8ED}
+body.dark{--cream:#141414;--dark:#F0F0F0;--gold-light:#2A2020;--rose:#E8A0B0;--rose-light:rgba(232,160,176,0.15);--muted:#A08090;--border:#2E2E2E;--white:#1E1E1E;--green:#6B9E82;--red:#E57373}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Jost',system-ui,sans-serif;background:var(--cream);color:var(--dark);min-height:100vh;transition:background 0.3s,color 0.3s;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.page{display:none}.page.active{display:block}
+/* NAV */
+.nav{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.5rem;background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;padding-top:max(1rem,env(safe-area-inset-top,1rem))}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--dark);cursor:pointer}.nav-logo span{color:var(--rose)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.nav-ig{width:34px;height:34px;border-radius:50%;background:var(--gold-light);display:flex;align-items:center;justify-content:center;text-decoration:none;flex-shrink:0}
+.nav-ig svg{width:16px;height:16px;fill:var(--rose)}
+.nav-dropdown-btn{display:flex;align-items:center;gap:6px;padding:6px 12px;background:none;border:1px solid var(--border);border-radius:20px;cursor:pointer;font-family:'Jost',sans-serif;font-size:13px;color:var(--dark)}
+.nav-dropdown-btn:hover{border-color:var(--rose)}
+.nav-avatar{width:24px;height:24px;border-radius:50%;background:var(--rose-light);border:1.5px solid var(--rose);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--rose);overflow:hidden;flex-shrink:0}
+.dropdown-menu{display:none;position:absolute;right:0;top:44px;background:var(--white);border:1px solid var(--border);border-radius:12px;padding:8px;min-width:180px;z-index:200;box-shadow:0 4px 20px rgba(0,0,0,0.12)}
+.dropdown-menu.open{display:block}
+.dd-item{display:block;width:100%;padding:10px 14px;background:none;border:none;text-align:left;font-size:14px;color:var(--dark);cursor:pointer;border-radius:8px;font-family:'Jost',sans-serif}
+.dd-item:hover{background:var(--gold-light)}
+.dd-item.red{color:var(--red)}
+.dd-item.rose{color:var(--rose);font-weight:500}
+.dd-sep{border-top:1px solid var(--border);margin:4px 0}
+/* AUTH */
+.auth-wrap{max-width:400px;margin:0 auto;padding:3rem 1.5rem}
+.auth-logo{text-align:center;margin-bottom:2rem}
+.auth-logo h1{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:500;color:var(--dark)}
+.auth-logo .sub{font-size:13px;color:var(--muted);margin-top:4px}
+.auth-tabs{display:flex;margin-bottom:1.5rem;border-bottom:1px solid var(--border)}
+.auth-tab{flex:1;padding:10px;text-align:center;font-size:14px;cursor:pointer;color:var(--muted);background:none;border:none;font-family:'Jost',sans-serif;border-bottom:2px solid transparent;margin-bottom:-1px}
+.auth-tab.active{color:var(--rose);border-bottom-color:var(--rose);font-weight:500}
+label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px;font-weight:500}
+input,textarea{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:16px;color:var(--dark);background:var(--white);margin-bottom:1rem;outline:none;font-family:'Jost',sans-serif}
+input:focus,textarea:focus{border-color:var(--rose)}
+textarea{height:80px;resize:none}
+.btn{display:block;width:100%;padding:14px;background:var(--rose);color:var(--white);border:none;border-radius:25px;font-size:15px;font-weight:500;cursor:pointer;text-align:center;margin-top:0.5rem;font-family:'Jost',sans-serif}
+.btn:disabled{opacity:0.5;cursor:default}
+.btn-ghost{background:transparent;border:1.5px solid var(--border);color:var(--dark);margin-top:8px}
+.btn-link{background:none;border:none;color:var(--rose);font-size:13px;cursor:pointer;font-family:'Jost',sans-serif;padding:0;text-decoration:underline;display:block;text-align:center;margin-top:12px}
+.btn-back{background:none;border:none;color:var(--muted);font-size:13px;cursor:pointer;font-family:'Jost',sans-serif;padding:0}
+.error-msg{background:#FEF0F0;color:var(--red);border-radius:8px;padding:10px 12px;font-size:13px;margin-bottom:1rem}
+.success-msg{background:#F0FBF4;color:var(--green);border-radius:8px;padding:10px 12px;font-size:13px;margin-bottom:1rem}
+/* HERO */
+.hero{padding:2.5rem 1.5rem 2rem;text-align:center;background:linear-gradient(180deg,var(--white) 0%,var(--cream) 100%)}
+.hero-tag{font-size:11px;letter-spacing:2px;color:var(--rose);text-transform:uppercase;margin-bottom:10px}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:500;color:var(--dark);line-height:1.2;margin-bottom:8px}
+.gel-text{font-style:italic;color:transparent;background:linear-gradient(135deg,#E8A0B0 0%,#C4788A 30%,#F5C0CC 50%,#C4788A 70%,#A0566A 100%);-webkit-background-clip:text;background-clip:text;filter:drop-shadow(2px 4px 6px rgba(196,120,138,0.4)) drop-shadow(0px 0px 12px rgba(232,160,176,0.3));display:inline-block}
+.hero p{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:1.5rem}
+.hero-btns{display:flex;gap:10px;justify-content:center}
+.btn-hero-dark{padding:12px 28px;background:var(--dark);color:var(--white);border:none;border-radius:25px;font-size:14px;font-weight:500;cursor:pointer;font-family:'Jost',sans-serif}
+.btn-hero-outline{padding:12px 20px;background:transparent;color:var(--rose);border:1.5px solid var(--rose);border-radius:25px;font-size:14px;font-weight:500;cursor:pointer;font-family:'Jost',sans-serif}
+/* GALLERY */
+.section{padding:1.5rem}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:500;color:var(--dark);margin-bottom:4px}
+.section-sub{font-size:13px;color:var(--muted);margin-bottom:1rem}
+.gallery-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.gal-item{border-radius:12px;overflow:hidden;cursor:pointer;position:relative;aspect-ratio:3/4}
+.gal-img{width:100%;height:100%;background-size:cover;background-position:center bottom;transition:transform 0.3s}
+.gal-item:hover .gal-img{transform:scale(1.03)}
+.gal-ov{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.7));padding:1rem 0.75rem 0.75rem;color:#fff}
+.gal-ov-name{font-size:13px;font-weight:500;color:#fff}
+/* SERVICES */
+.svc-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--border)}
+.svc-row:last-child{border-bottom:none}
+/* BOOKING */
+.steps-wrap{padding:1rem 1.5rem 0}
+.step-indicator{display:flex;gap:6px;margin-bottom:1.25rem}
+.step-dot{height:3px;flex:1;border-radius:2px;background:var(--border)}
+.step-dot.done{background:var(--rose)}
+.wrap{max-width:440px;margin:0 auto;padding:1.25rem 1.5rem 3rem}
+.page-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:500;color:var(--dark);margin-bottom:4px}
+.page-sub{font-size:14px;color:var(--muted);margin-bottom:1.5rem}
+.service-card{background:var(--white);border:1.5px solid var(--border);border-radius:14px;padding:1rem 1.25rem;margin-bottom:10px;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.service-card:hover{border-color:var(--rose);background:var(--gold-light)}
+.sname{font-size:15px;font-weight:500;color:var(--dark)}
+.sdur{font-size:13px;color:var(--muted);margin-top:2px}
+.sprice{font-size:16px;font-weight:500;color:var(--rose)}
+.cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+.cal-nav{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:6px 14px;cursor:pointer;color:var(--dark);font-size:16px}
+.cal-title{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;color:var(--dark)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:1rem}
+.cal-lbl{text-align:center;font-size:11px;color:var(--muted);padding:4px 0}
+.cal-day{text-align:center;padding:9px 4px;border-radius:8px;font-size:14px;cursor:pointer;color:var(--dark);user-select:none}
+.cal-day:hover:not(.dis):not(.empty){background:var(--gold-light)}
+.cal-day.sel{background:var(--rose);color:var(--white)!important;font-weight:500}
+.cal-day.dis{color:var(--border);cursor:default}.cal-day.empty{cursor:default}
+.cal-day.tod:not(.sel){font-weight:600;color:var(--rose);border:1.5px solid var(--rose)}
+.slots-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:1.5rem}
+.slot{text-align:center;padding:10px 4px;border:1.5px solid var(--border);border-radius:10px;font-size:13px;cursor:pointer;color:var(--dark);background:var(--white)}
+.slot:hover:not(.taken){border-color:var(--rose);background:var(--gold-light)}
+.slot.sel{border:2px solid var(--rose);color:var(--rose);font-weight:500;background:var(--gold-light)}
+.slot.taken{opacity:0.3;cursor:default;text-decoration:line-through}
+.summary-card{background:var(--gold-light);border-radius:14px;padding:1rem 1.25rem;margin-bottom:1.5rem;border:1px solid var(--border)}
+.srow{display:flex;justify-content:space-between;font-size:14px;padding:5px 0;color:var(--dark)}
+.srow span:first-child{color:var(--muted)}
+.srow.total{font-weight:600;border-top:1px solid var(--border);padding-top:10px;margin-top:6px;color:var(--rose)}
+.success-icon{width:64px;height:64px;border-radius:50%;background:var(--gold-light);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:28px;border:2px solid var(--rose)}
+.badge{display:inline-block;padding:3px 12px;border-radius:20px;font-size:12px;font-weight:500;margin-top:6px}
+.badge.asteptare{background:#FFF8E6;color:#B8860B}
+.badge.confirmat{background:#F0FBF4;color:#3D8B5E}
+.badge.anulat{background:#FEF0F0;color:var(--red)}
+.hist-card{background:var(--white);border:1px solid var(--border);border-radius:14px;margin-bottom:10px;overflow:hidden}
+.tab-bar{display:flex;margin-bottom:1.5rem;border-bottom:1px solid var(--border)}
+.tab-btn{flex:1;padding:10px;text-align:center;font-size:13px;cursor:pointer;color:var(--muted);background:none;border:none;font-family:'Jost',sans-serif;border-bottom:2px solid transparent;margin-bottom:-1px}
+.tab-btn.active{color:var(--rose);border-bottom-color:var(--rose);font-weight:500}
+/* LOGIN MODAL */
+.login-modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(30,14,8,0.6);display:flex;align-items:flex-end;justify-content:center;z-index:400}
+.login-modal{background:var(--white);border-radius:20px 20px 0 0;padding:1.5rem;width:100%;max-width:440px;max-height:90vh;overflow-y:auto}
+/* PROFILE */
+.profile-view-wrap{max-width:440px;margin:0 auto;padding:1.5rem}
+/* FOOTER */
+.footer-section{background:var(--white);border-top:1px solid var(--border);padding:2rem 1.5rem;margin-top:1rem}
+
+/* ===== APP MODE ===== */
+body.app-mode .page { display: none !important; }
+body.app-mode .page.active { display: block !important; }
+body.app-mode #phome { display: none !important; }
+
+/* Pagina app = full screen cu tabbar fix */
+body.app-mode .app-pg {
+  display: none !important;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--cream);
+}
+body.app-mode .app-pg.active { display: flex !important; }
+
+/* HEADER PRINCIPAL */
+.app-hdr {
+  flex-shrink: 0;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+}
+.app-hdr-safe { height: 54px; } /* fix 54px - acoperă orice notch */
+.app-hdr-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 18px 12px;
+}
+.app-logo { font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:500; color:var(--dark); }
+.app-logo span { color: var(--rose); }
+.app-bynaomi {
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic; font-size:11px;
+  color:var(--muted); margin-top:1px;
+  transition: all 0.3s; overflow:hidden; max-height:18px; opacity:1;
+}
+.app-hdr.collapsed .app-bynaomi { max-height:0; opacity:0; margin-top:0; }
+.app-bell {
+  width:40px; height:40px; border-radius:50%;
+  background:var(--gold-light); border:none;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; position:relative; flex-shrink:0;
+}
+.app-bell svg { width:18px; height:18px; stroke:var(--rose); fill:none; stroke-width:1.5; stroke-linecap:round; }
+
+/* HEADER SECUNDAR (pagini cu back) */
+.app-bkhdr {
+  flex-shrink: 0;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding-top: 54px; /* fix safe area */
+}
+.app-bkhdr-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 18px 12px;
+}
+.app-back {
+  width:38px; height:38px; border-radius:50%;
+  background:var(--gold-light); border:none;
+  display:flex; align-items:center; justify-content:center; cursor:pointer;
+}
+.app-back svg { width:18px; height:18px; stroke:var(--rose); fill:none; stroke-width:1.5; stroke-linecap:round; }
+.app-bktitle { font-family:'Cormorant Garamond',serif; font-size:18px; font-weight:500; color:var(--dark); }
+
+/* SCROLL AREA */
+.app-scroll {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: 100px;
+}
+.app-scroll::-webkit-scrollbar { display: none; }
+
+/* TABBAR FIX - POSITION FIXED */
+.app-tab {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: var(--white);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  padding: 10px 0;
+  padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+  z-index: 200;
+}
+.app-t {
+  display:flex; flex-direction:column; align-items:center;
+  gap:4px; font-size:11px; color:var(--muted);
+  width:80px; cursor:pointer; border:none; background:none;
+  font-family:'Jost',sans-serif;
+}
+.app-t.on { color: var(--rose); }
+.app-t svg { width:22px; height:22px; stroke:currentColor; fill:none; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
+.app-fab {
+  display:flex; flex-direction:column; align-items:center;
+  margin-top: -28px; cursor:pointer;
+  border:none; background:none;
+  font-family:'Jost',sans-serif; font-size:11px; color:var(--muted); gap:4px;
+}
+.app-fab-c {
+  width:58px; height:58px; border-radius:50%;
+  background:var(--rose); display:flex; align-items:center; justify-content:center;
+  border:3px solid var(--white);
+  box-shadow: 0 4px 16px rgba(196,120,138,0.4);
+}
+.app-fab-c svg { width:26px; height:26px; stroke:white; fill:none; stroke-width:2; stroke-linecap:round; }
+
+/* SECTIUNI HOME */
+.a-sec {
+  font-size:10px; letter-spacing:.1em; color:var(--muted);
+  text-transform:uppercase; padding:14px 18px 8px; font-weight:500;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.a-card { margin:0 18px 10px; background:var(--white); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+
+/* INSPO PREVIEW */
+.ip-wrap { margin:0 18px 10px; background:var(--white); border:1px solid var(--border); border-radius:14px; overflow:hidden; height:140px; position:relative; cursor:pointer; }
+.ip-grid { display:flex; gap:4px; padding:6px; height:100%; }
+.ip-big { flex:0 0 45%; border-radius:10px; overflow:hidden; background:var(--gold-light); }
+.ip-big img, .ip-sm img { width:100%; height:100%; object-fit:cover; }
+.ip-col { flex:1; display:flex; flex-direction:column; gap:4px; }
+.ip-sm { flex:1; border-radius:8px; overflow:hidden; background:var(--gold-light); }
+.ip-fog { position:absolute; right:0; top:0; bottom:0; width:35%; background:linear-gradient(to right,transparent,var(--white) 65%); display:flex; align-items:center; justify-content:flex-end; padding-right:14px; pointer-events:none; }
+.ip-fog span { font-size:11px; color:var(--rose); text-align:right; line-height:1.5; font-weight:500; }
+
+/* SERVICII */
+.a-svc-row { display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-bottom:1px solid var(--border); }
+.a-svc-row:last-child { border-bottom:none; }
+.a-svc-name { font-size:13px; color:var(--dark); }
+.a-svc-dur { font-size:11px; color:var(--muted); margin-top:2px; }
+.a-svc-price { font-size:13px; color:var(--rose); font-weight:500; }
+
+/* RECENZII SLIDER */
+.arv-wrap { margin:0 18px 10px; background:var(--white); border:1px solid var(--border); border-radius:14px; padding:16px; }
+.arv-overflow { overflow:hidden; }
+.arv-track { display:flex; transition:transform .45s cubic-bezier(.4,0,.2,1); }
+.arv-slide { flex:0 0 100%; }
+.arv-q { font-size:28px; color:var(--rose); opacity:.2; font-family:'Cormorant Garamond',serif; line-height:1; margin-bottom:4px; }
+.arv-text { font-size:14px; color:var(--dark); line-height:1.65; font-style:italic; font-family:'Cormorant Garamond',serif; margin-bottom:8px; }
+.arv-name { font-size:13px; font-weight:500; color:var(--dark); }
+.arv-stars { color:#F59E0B; font-size:12px; margin-top:2px; }
+.arv-footer { display:flex; align-items:center; justify-content:space-between; margin-top:12px; padding-top:10px; border-top:1px solid var(--border); }
+.arv-dots { display:flex; gap:5px; align-items:center; }
+.arv-dot { width:6px; height:6px; border-radius:50%; background:var(--border); border:none; padding:0; cursor:pointer; transition:all .3s; flex-shrink:0; }
+.arv-dot.on { width:16px; border-radius:3px; background:var(--rose); }
+.arv-sa { font-size:12px; color:var(--rose); background:none; border:none; cursor:pointer; font-family:'Jost',sans-serif; font-weight:500; text-decoration:underline; text-underline-offset:3px; }
+
+/* INSPO CATEGORII */
+.ic-card { margin:0 18px 12px; background:var(--white); border:1px solid var(--border); border-radius:14px; overflow:hidden; cursor:pointer; }
+.ic-photos { display:flex; gap:3px; padding:6px; height:100px; }
+.ic-big { flex:0 0 42%; border-radius:10px; overflow:hidden; background:var(--gold-light); }
+.ic-big img, .ic-sm img { width:100%; height:100%; object-fit:cover; }
+.ic-col { flex:1; display:flex; flex-direction:column; gap:3px; }
+.ic-sm { flex:1; border-radius:7px; overflow:hidden; background:var(--gold-light); }
+.ic-foot { display:flex; align-items:center; justify-content:space-between; padding:8px 14px 10px; }
+.ic-name { font-size:13px; font-weight:500; color:var(--dark); }
+.ic-btn { display:flex; align-items:center; gap:4px; background:linear-gradient(to right,var(--rose-light),transparent); padding:5px 10px; border-radius:20px; }
+.ic-btn span { font-size:11px; color:var(--rose); }
+.ic-btn svg { width:12px; height:12px; stroke:var(--rose); fill:none; stroke-width:2; stroke-linecap:round; }
+
+/* GALERIE */
+.ig-grid { padding:8px 18px 20px; columns:2; column-gap:8px; }
+.ig-item { break-inside:avoid; margin-bottom:8px; border-radius:12px; overflow:hidden; cursor:pointer; background:var(--gold-light); }
+.ig-item img { width:100%; display:block; }
+
+/* DETALIU INSPO */
+.id-img { margin:8px 18px; border-radius:14px; overflow:hidden; background:var(--gold-light); }
+.id-img img { width:100%; display:block; }
+.id-info { padding:12px 18px 8px; }
+.id-title { font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:500; color:var(--dark); margin-bottom:6px; }
+.id-desc { font-size:13px; color:var(--muted); line-height:1.7; margin-bottom:10px; }
+.id-tags { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:14px; }
+.id-tag { background:var(--rose-light); color:var(--rose); border:1px solid var(--border); border-radius:20px; font-size:11px; padding:3px 10px; }
+.id-actions { display:flex; gap:10px; padding:0 18px 20px; }
+.id-book { flex:1; background:var(--rose); color:white; border:none; border-radius:14px; padding:13px; font-size:14px; font-weight:500; cursor:pointer; font-family:'Jost',sans-serif; }
+.id-like { width:50px; height:50px; background:var(--white); border:1px solid var(--border); border-radius:14px; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; }
+.id-like svg { width:22px; height:22px; stroke:var(--rose); fill:none; stroke-width:1.5; stroke-linecap:round; transition:fill .2s; }
+.id-like.on svg { fill:var(--rose); }
+
+/* PROFIL APP */
+.ap-hdr { flex-shrink:0; background:var(--white); border-bottom:1px solid var(--border); padding:54px 18px 14px 18px; }
+.ap-row { display:flex; align-items:center; gap:14px; }
+.ap-av { width:54px; height:54px; border-radius:50%; background:var(--rose-light); border:2px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:18px; font-weight:500; color:var(--rose); overflow:hidden; flex-shrink:0; }
+.ap-av img { width:100%; height:100%; object-fit:cover; }
+.ap-nm { font-size:15px; font-weight:500; color:var(--dark); }
+.ap-ph { font-size:12px; color:var(--muted); margin-top:2px; }
+.ap-ed { margin-left:auto; font-size:12px; color:var(--rose); background:var(--rose-light); border:none; border-radius:20px; padding:6px 14px; cursor:pointer; font-family:'Jost',sans-serif; }
+
+/* CARD PROGRAMARE */
+.ap-sec { margin:14px 18px 0; }
+.ap-sec-t { font-size:10px; letter-spacing:.1em; color:var(--muted); text-transform:uppercase; margin-bottom:8px; font-weight:500; }
+.pc { border-radius:14px; padding:11px 14px; margin-bottom:8px; display:flex; align-items:center; gap:10px; border:1px solid var(--border); background:var(--white); }
+.pc.g { background:#F0FBF4; border-color:#C3E6CB; }
+.pc.a { background:#FFFBF0; border-color:#FFE082; }
+.pc.r { background:#FEF0F0; border-color:#F5C6CB; }
+.pc.gr { opacity:.75; }
+.pc-dt { width:36px; height:36px; border-radius:9px; display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0; }
+.pc.g .pc-dt{background:#C3E6CB;} .pc.a .pc-dt{background:#FFE082;} .pc.r .pc-dt{background:#F5C6CB;} .pc.gr .pc-dt{background:#E0E0E0;}
+.pc-m { font-size:8px; letter-spacing:.05em; font-weight:500; }
+.pc.g .pc-m{color:#155724;} .pc.a .pc-m{color:#856404;} .pc.r .pc-m{color:#721c24;} .pc.gr .pc-m{color:#888;}
+.pc-d { font-size:14px; font-weight:600; line-height:1; }
+.pc.g .pc-d{color:#155724;} .pc.a .pc-d{color:#856404;} .pc.r .pc-d{color:#721c24;} .pc.gr .pc-d{color:#888;}
+.pc-info { flex:1; min-width:0; }
+.pc-svc { font-size:13px; font-weight:500; color:var(--dark); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.pc.gr .pc-svc, .pc.r .pc-svc { color:#888; }
+.pc-time { font-size:11px; color:var(--muted); margin-top:2px; }
+.pc-right { flex-shrink:0; display:flex; flex-direction:column; align-items:flex-end; gap:4px; }
+.pc-badge { font-size:10px; font-weight:500; padding:2px 8px; border-radius:20px; }
+.pc.g .pc-badge{color:#155724;background:#D4EDDA;} .pc.a .pc-badge{color:#856404;background:#FFF3CD;} .pc.r .pc-badge{color:#721c24;background:#F8D7DA;} .pc.gr .pc-badge{color:#666;background:#E0E0E0;}
+.pc-cancel { font-size:11px; color:var(--muted); cursor:pointer; border:none; background:none; font-family:'Jost',sans-serif; }
+.hist-fade { position:relative; border-radius:14px; overflow:hidden; margin-bottom:8px; }
+.hist-ov { position:absolute; bottom:0; left:0; right:0; height:55px; background:linear-gradient(to bottom,transparent,var(--cream)); display:flex; align-items:flex-end; justify-content:center; padding-bottom:8px; }
+.hist-more { font-size:12px; color:var(--rose); font-weight:500; border:none; background:none; cursor:pointer; font-family:'Jost',sans-serif; }
+.ap-logout { display:block; width:calc(100% - 36px); margin:16px 18px; padding:14px; text-align:center; background:var(--white); border:1.5px solid var(--border); border-radius:14px; cursor:pointer; font-size:14px; color:var(--red); font-family:'Jost',sans-serif; }
+
+/* NOTIFICARI PANEL */
+.np-ov { position:fixed; inset:0; background:rgba(0,0,0,.35); z-index:499; display:none; pointer-events:none; }
+.np-ov.on { display:block; pointer-events:all; }
+.np { position:fixed; top:0; right:-100%; width:82%; max-width:310px; height:100vh; background:var(--white); border-left:1px solid var(--border); z-index:500; transition:right .3s; }
+.np.on { right:0; }
+.np-head { display:flex; align-items:center; justify-content:space-between; padding:14px 18px; padding-top:calc(54px + 14px); border-bottom:1px solid var(--border); }
+.np-title { font-family:'Cormorant Garamond',serif; font-size:18px; font-weight:500; color:var(--dark); }
+.np-close { width:30px; height:30px; display:flex; align-items:center; justify-content:center; background:var(--gold-light); border-radius:50%; border:none; cursor:pointer; }
+.np-close svg { width:13px; height:13px; stroke:var(--rose); fill:none; stroke-width:2; stroke-linecap:round; }
+.np-empty { padding:40px 18px; text-align:center; color:var(--muted); font-size:13px; }
+
+/* BOOKING în app mode */
+body.app-mode #p1 .nav, body.app-mode #p2 .nav, body.app-mode #p3 .nav,
+body.app-mode #p4 .nav, body.app-mode #phist .nav, body.app-mode #pprofile .nav { display:none; }
+.bk-hdr { display:none; flex-shrink:0; background:var(--white); border-bottom:1px solid var(--border); }
+body.app-mode .bk-hdr { display:flex; align-items:center; justify-content:space-between; padding:12px 18px; padding-top:calc(54px + 12px); }
+body.app-mode #p1, body.app-mode #p2, body.app-mode #p3, body.app-mode #p4,
+body.app-mode #phist, body.app-mode #pprofile {
+  display:none !important;
+  flex-direction:column; height:100vh; overflow:hidden;
+  background:var(--cream);
+}
+body.app-mode #p1.active, body.app-mode #p2.active, body.app-mode #p3.active,
+body.app-mode #p4.active, body.app-mode #phist.active, body.app-mode #pprofile.active {
+  display:flex !important;
+}
+body.app-mode #p1 .wrap, body.app-mode #p2 .wrap, body.app-mode #p3 .wrap,
+body.app-mode #p4 .wrap, body.app-mode #phist .wrap { overflow-y:auto; flex:1; -webkit-overflow-scrolling:touch; padding-bottom:30px; scrollbar-width:none; }
+body.app-mode #p1 .wrap::-webkit-scrollbar, body.app-mode #p2 .wrap::-webkit-scrollbar,
+body.app-mode #p3 .wrap::-webkit-scrollbar, body.app-mode #p4 .wrap::-webkit-scrollbar { display:none; }
+body.app-mode #pprofile { overflow:hidden; }
+body.app-mode #pprofile .profile-view-wrap { flex:1; overflow-y:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; padding:1.25rem 1.5rem 100px; max-width:100%; }
+body.app-mode #pprofile .profile-view-wrap::-webkit-scrollbar { display:none; }
+body.app-mode #pprofile input, body.app-mode #pprofile textarea { width:100% !important; box-sizing:border-box !important; }
+
+/* Hide scrollbars globally */
+*{scrollbar-width:none;-ms-overflow-style:none}
+*::-webkit-scrollbar{display:none}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+</style>
+</head>
+<body>
+
+<!-- HOME PAGE -->
+<div class="page active" id="phome">
+  <nav class="nav">
+    <div class="nav-logo" onclick="goHome()">Naomi<span>Stanciu</span></div>
+    <div class="nav-right">
+      <a href="https://www.instagram.com/stanciu.naomi.nails" target="_blank" class="nav-ig">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>
+      <div style="position:relative">
+        <button class="nav-dropdown-btn" id="dd-btn" onclick="toggleDropdown()">
+          <div class="nav-avatar" id="nav-avatar" style="display:none"></div>
+          <span id="nav-name">Cont</span>
+          <span style="font-size:10px;opacity:0.5">▾</span>
+        </button>
+        <div class="dropdown-menu" id="dd-menu">
+          <!-- Conectat -->
+          <button class="dd-item" id="dd-profil" style="display:none" onclick="showProfilePage();closeDropdown()">Profilul meu</button>
+          <button class="dd-item" id="dd-prog" style="display:none" onclick="showHistory();closeDropdown()">Programările mele</button>
+          <div class="dd-sep" id="dd-sep-top" style="display:none"></div>
+          <!-- Mereu vizibil -->
+          <button class="dd-item" id="dd-theme" onclick="toggleTheme();closeDropdown()">🌑 Dark mode</button>
+          <div class="dd-sep"></div>
+          <!-- Neconectat -->
+          <button class="dd-item rose" id="dd-login" onclick="showLoginModal();closeDropdown()">Log in / Cont nou</button>
+          <!-- Conectat -->
+          <button class="dd-item red" id="dd-logout" style="display:none" onclick="doLogout();closeDropdown()">Ieși din cont</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <p class="hero-tag">Nail Artist · Suceava</p>
+    <h1>Hai să dăm formă<br><span class="gel-text">unghiilor la care visezi</span></h1>
+    <p>Fiecare set de unghii este creat special pentru tine, cu grijă și pasiune.</p>
+    <div class="hero-btns">
+      <button class="btn-hero-dark" onclick="startBooking()">Programează-te</button>
+      <button class="btn-hero-outline" onclick="showHistory()">Programările mele</button>
+    </div>
+  </div>
+
+  <!-- GALLERY -->
+  <div class="section">
+    <p class="section-title">Lucrări & Inspirație</p>
+    <p class="section-sub">Apasă pe poză pentru a selecta data dorită</p>
+    <div class="gallery-grid" id="gallery-grid"></div>
+  </div>
+
+  <!-- SERVICES -->
+  <div class="section">
+    <p class="section-title">Lista servicii</p>
+    <div id="svc-list-home"></div>
+    <button style="background:var(--dark);color:var(--white);border:none;margin-top:1.5rem;display:block;width:100%;border-radius:25px;padding:13px;font-size:15px;font-family:'Jost',sans-serif;cursor:pointer" onclick="startBooking()">Programează-te</button>
+  </div>
+
+  <!-- RECENZII -->
+  <style>
+  .rv-section{padding:1.5rem}
+  .rv-header{margin-bottom:1.25rem}
+  .rv-header h2{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:500;color:var(--dark)}
+  .rv-rating-row{display:flex;align-items:center;gap:6px;margin-top:4px}
+  .rv-rating-star{color:#F59E0B;font-size:16px}
+  .rv-rating-score{font-size:15px;font-weight:600;color:var(--dark)}
+  .rv-rating-count{font-size:13px;color:var(--muted)}
+  .rv-slider-wrap{overflow:hidden;border-radius:18px;touch-action:pan-y}
+  .rv-track{display:flex;transition:transform 0.45s cubic-bezier(0.4,0,0.2,1)}
+  .rv-slide{flex:0 0 100%;width:100%;padding:20px;background:var(--white);border:1px solid var(--border);border-radius:18px;box-sizing:border-box;min-height:180px;display:flex;flex-direction:column;justify-content:space-between}
+  .rv-quote{font-size:36px;color:var(--rose);opacity:0.25;font-family:'Cormorant Garamond',serif;line-height:1;margin-bottom:4px}
+  .rv-text{font-size:15px;color:var(--dark);line-height:1.65;font-style:italic;font-family:'Cormorant Garamond',serif}
+  .rv-footer{display:flex;align-items:center;gap:10px;margin-top:14px}
+  .rv-avatar{width:34px;height:34px;border-radius:50%;background:var(--rose);display:flex;align-items:center;justify-content:center;color:white;font-size:12px;font-weight:600;font-family:'Jost',sans-serif;flex-shrink:0}
+  .rv-name{font-size:13px;font-weight:500;color:var(--dark)}
+  .rv-stars{display:flex;gap:1px;margin-top:2px}
+  .rv-source{margin-left:auto;font-size:11px;color:var(--muted);background:var(--cream);padding:2px 8px;border-radius:20px;border:1px solid var(--border)}
+  .rv-dots{display:flex;justify-content:center;align-items:center;gap:6px;margin-top:12px}
+  .rv-dot{width:6px;height:6px;border-radius:50%;background:var(--border);border:none;cursor:pointer;padding:0;transition:all 0.3s;flex-shrink:0}
+  .rv-dot.active{width:18px;border-radius:3px;background:var(--rose)}
+  .rv-see-all{font-size:13px;color:var(--rose);background:none;border:none;cursor:pointer;font-family:'Jost',sans-serif;font-weight:500;padding:0;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+  .rv-form-box{margin-top:1.5rem;background:var(--white);border:1px solid var(--border);border-radius:18px;padding:20px}
+  .rv-form-title{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;color:var(--dark);margin-bottom:4px}
+  .rv-form-sub{font-size:13px;color:var(--muted);margin-bottom:14px}
+  .rv-star-pick{display:flex;gap:4px;margin-bottom:12px}
+  .rv-star-btn{background:none;border:none;cursor:pointer;padding:0;font-size:28px;color:var(--border);transition:color 0.15s}
+  .rv-star-btn.on{color:#F59E0B}
+  .rv-textarea{width:100%;border:1px solid var(--border);border-radius:12px;padding:12px 14px;font-size:14px;font-family:'Jost',sans-serif;color:var(--dark);background:var(--cream);resize:none;outline:none;margin-bottom:10px}
+  .rv-textarea:focus{border-color:var(--rose)}
+  .rv-select{width:100%;border:1px solid var(--border);border-radius:12px;padding:11px 14px;font-size:14px;font-family:'Jost',sans-serif;color:var(--dark);background:var(--cream);outline:none;margin-bottom:10px;appearance:none;-webkit-appearance:none}
+  .rv-submit{width:100%;background:var(--dark);color:var(--white);border:none;border-radius:25px;padding:13px;font-size:15px;font-family:'Jost',sans-serif;cursor:pointer}
+  .rv-login-prompt{text-align:center;padding:8px 0}
+  .rv-login-prompt p{font-size:14px;color:var(--muted);margin-bottom:12px}
+  .rv-login-prompt button{background:var(--rose);color:white;border:none;border-radius:25px;padding:11px 28px;font-size:14px;font-family:'Jost',sans-serif;cursor:pointer}
+  .rv-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:500;display:none;align-items:flex-end}
+  .rv-modal-overlay.open{display:flex}
+  .rv-modal{background:var(--cream);border-radius:24px 24px 0 0;width:100%;max-height:88vh;display:flex;flex-direction:column;overflow:hidden}
+  .rv-modal-head{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--white);flex-shrink:0}
+  .rv-modal-head h3{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;color:var(--dark)}
+  .rv-modal-close{background:var(--cream);border:none;border-radius:50%;width:32px;height:32px;cursor:pointer;font-size:16px;color:var(--muted)}
+  .rv-filters{padding:12px 16px;display:flex;gap:8px;overflow-x:auto;flex-shrink:0;scrollbar-width:none;border-bottom:1px solid var(--border);background:var(--white)}
+  .rv-filters::-webkit-scrollbar{display:none}
+  .rv-chip{padding:7px 14px;border-radius:20px;border:1.5px solid var(--border);background:var(--white);font-size:13px;font-family:'Jost',sans-serif;color:var(--dark);cursor:pointer;white-space:nowrap;transition:all 0.2s;flex-shrink:0}
+  .rv-chip.active{background:var(--rose);color:white;border-color:var(--rose)}
+  .rv-modal-list{overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;flex:1}
+  .rv-card{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:16px}
+  .rv-card-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+  .rv-card-av{width:36px;height:36px;border-radius:50%;background:var(--rose);display:flex;align-items:center;justify-content:center;color:white;font-size:13px;font-weight:600;font-family:'Jost',sans-serif;flex-shrink:0}
+  .rv-card-name{font-size:14px;font-weight:500;color:var(--dark)}
+  .rv-card-stars{display:flex;gap:2px;margin-top:2px}
+  .rv-card-text{font-size:14px;color:var(--dark);line-height:1.55}
+  .rv-card-src{margin-left:auto;font-size:11px;color:var(--muted);background:var(--cream);padding:2px 8px;border-radius:20px;border:1px solid var(--border);flex-shrink:0}
+  </style>
+
+  <div class="rv-section">
+    <div class="rv-header">
+      <h2>Recenzii</h2>
+      <div class="rv-rating-row">
+        <span class="rv-rating-star">&#9733;</span>
+        <span class="rv-rating-score">5.0</span>
+        <span class="rv-rating-count" id="rvCount">(465 evaluari)</span>
+      </div>
+    </div>
+    <div class="rv-slider-wrap" id="rvWrap">
+      <div class="rv-track" id="rvTrack"></div>
+    </div>
+    <div class="rv-dots" id="rvDots"></div>
+    <div class="rv-form-box">
+      <p class="rv-form-title">Lasa o recenzie</p>
+      <p class="rv-form-sub">Experienta ta conteaza</p>
+      <div id="rvLoading" style="font-size:13px;color:var(--muted);padding:4px 0">Se verifica...</div>
+      <div id="rvLoginBox" style="display:none" class="rv-login-prompt">
+        <p>Trebuie sa fii conectata pentru a lasa o recenzie.</p>
+        <button onclick="showLoginModal()">Conecteaza-te</button>
+      </div>
+      <div id="rvFormBox" style="display:none">
+        <div class="rv-star-pick" id="rvStarPick">
+          <button class="rv-star-btn" data-v="1">&#9733;</button>
+          <button class="rv-star-btn" data-v="2">&#9733;</button>
+          <button class="rv-star-btn" data-v="3">&#9733;</button>
+          <button class="rv-star-btn" data-v="4">&#9733;</button>
+          <button class="rv-star-btn" data-v="5">&#9733;</button>
+        </div>
+        <select class="rv-select" id="rvSvc">
+          <option value="">Serviciu (optional)</option>
+          <option>Oja semipermanenta</option>
+          <option>Constructie unghii scurte/medii</option>
+          <option>Intretinere complexa unghii scurte</option>
+          <option>Intretinere complexa unghii medii</option>
+          <option>Arhitectura SLIM</option>
+          <option>Pachet curatare + demontare</option>
+          <option>Man Manicure</option>
+        </select>
+        <textarea class="rv-textarea" id="rvText" rows="4" placeholder="Scrie experienta ta... (optional)"></textarea>
+        <button class="rv-submit" onclick="rvSubmit()">Trimite recenzia</button>
+      </div>
+      <div id="rvSuccessBox" style="display:none;text-align:center;padding:12px 0">
+        <div style="font-size:32px">&#127800;</div>
+        <p style="font-size:15px;font-weight:500;color:var(--dark);margin-top:8px">Multumim pentru recenzie!</p>
+        <p style="font-size:13px;color:var(--muted);margin-top:4px">Recenzia ta a fost publicata!</p>
+      </div>
+    </div>
+  </div>
+
+  
+
+  <script>
+  var RV_MERO=[
+    {name:"Violeta Gales",text:"Naomi e o dulce! Foarte atenta la detalii si extrem de perfectionista cand vine vorba de cuticula. O recomand cu tot dragul!",rating:5,mero:true},
+    {name:"Elena Balanica",text:"Naomi o super draguta si o adevarata profesionista! Foarte atenta la detalii! Manichiura perfecta!",rating:5,mero:true},
+    {name:"Alexandra Ursu",text:"A fost o placere sa conversez cu Naomi, iar unghiutele mele arata absolut minunat! Le ador! Multumesc!",rating:5,mero:true},
+    {name:"Diana Fartais",text:"Naomi a fost prima cu care am interactionat si pot spune ca e un om super fain. Mi-a facut niste bombonele de unghii. Recomand cu drag!",rating:5,mero:true},
+    {name:"Georgeta Bodnar",text:"Naomi este o fata atat de dulce si pe cat este de dulce pe atat de talentata este! Ofera servicii de calitate si merita sa te intorci!",rating:5,mero:true},
+    {name:"Iustina Ungureanu",text:"Foarte multumita de Naomi. O prezenta calda si profesionista. Recomand cu drag!",rating:5,mero:true},
+    {name:"Flaviana Raileanu",text:"Naomi este o prezenta placuta si se dedica intru totul sa ajunga la rezultate cat mai spectaculoase.",rating:5,mero:true},
+    {name:"Flaviana Raileanu",text:"Super multumita de Naomi. Face o treaba excelenta!",rating:5,mero:true},
+    {name:"Alina Turiceanu",text:"Naomi este foarte atenta la toate solicitarile clientei! Bravo ei! Inclinare maxima pentru satisfacerea clientelor!",rating:5,mero:true},
+    {name:"Madalina Popa",text:"Recomand cu incredere! Naomi este o draguta, a lucrat atent si curat! Sunt foarte multumita!",rating:5,mero:true},
+    {name:"Cosmina Lupan",text:"Cea mai buna!!!!",rating:5,mero:true},
+    {name:"Cosmina Lupan",text:"Foarte multumita. O fata draguta si foarte atenta la detalii. Recomand cu drag!",rating:5,mero:true},
+    {name:"Ana Maria Ciobanu",text:"O recomand cu drag pe Naomi! Mi-a facut niste unghiute superbe!",rating:5,mero:true},
+    {name:"Medeea Grigoras",text:"Unghiutele mele sunt geniale!!! Imi plac atat de mult - n-am cuvinte sa exprim!",rating:5,mero:true},
+    {name:"Medeea Grigoras",text:"Chiar unghiile sunt pe gustul meu si arata genial!!!",rating:5,mero:true},
+    {name:"Claudia Baban-Mihaila",text:"Super fata, super manichiura!",rating:5,mero:true},
+    {name:"Irina Alexandra Coneac",text:"Naomi este foarte draguta si super atenta la tot ceea ce face.",rating:5,mero:true},
+    {name:"Steluta Coca",text:"Recomand cu incredere. Fetele sunt foarte amabile si profesioniste.",rating:5,mero:true},
+    {name:"Lorena Balan",text:"Excelent! Naomi este amabila si profesionala.",rating:5,mero:true},
+    {name:"Recenzie anonima",text:"Naomi mi-a facut unghiile exceptionale. Iar ea, o draguta de fata! Recomand cu mare drag!",rating:5,mero:true},
+    {name:"Alexandra B",text:"Foarte finuta si atenta la detalii.",rating:5,mero:true},
+    {name:"Alexandra Spoiala",text:"Super draguta Naomi iar manichiura perfecta!",rating:5,mero:true},
+    {name:"Aglaita Mereu",text:"Superba, relaxanta si foarte multumita.",rating:5,mero:true},
+    {name:"Anda Ostrovan",text:"Recomand cu mare drag!",rating:5,mero:true},
+    {name:"Diana Husanu",text:"The best!",rating:5,mero:true},
+    {name:"Iustina Ungureanu",text:"O prezenta calda si profesionista. Recomand cu drag!",rating:5,mero:true},
+    {name:"Georgeta Bodnar",text:"Naomi este o fata atat de dulce si pe atat de talentata este!",rating:5,mero:true},
+    {name:"Lorena Balan",text:"Naomi este amabila si profesionala. Recomand cu drag!",rating:5,mero:true},
+    {name:"Madalina Popa",text:"Naomi este o draguta, a lucrat atent si curat! Sunt foarte multumita!",rating:5,mero:true},
+    {name:"Alina Turiceanu",text:"Naomi este foarte atenta la toate solicitarile clientei! Inclinare maxima!",rating:5,mero:true}
+  ];
+  var RV_STAR='<svg width="11" height="11" viewBox="0 0 24 24" fill="#F59E0B"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
+  var RV_STAR_E='<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#DDD" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
+  function rvInit(n){return n.split(' ').filter(Boolean).map(function(w){return w[0];}).join('').substring(0,2).toUpperCase();}
+  var rvAll=[].concat(RV_MERO),rvCur=0,rvTimer,rvStars=0,rvSiteCount=0,RV_BASE=465,RV_SLIDER=7;
+  function rvLoadSite(){
+    sb.from('recenzii').select('nume_client,rating,descriere').eq('sursa','site').order('id',{ascending:false}).limit(50).then(function(res){
+      var data=res.data;
+      if(data&&data.length){
+        rvSiteCount=data.length;
+        rvAll=data.map(function(r){return{name:r.nume_client,text:r.descriere,rating:r.rating,mero:false};}).concat(RV_MERO);
+        document.getElementById('rvCount').textContent='('+(RV_BASE+rvSiteCount)+' evaluari)';
+      }
+      rvBuild();rvAuto();
+    }).catch(function(){rvBuild();rvAuto();});
+  }
+  function rvBuild(){
+    var track=document.getElementById('rvTrack');
+    var dots=document.getElementById('rvDots');
+    var slides=rvAll.slice(0,RV_SLIDER);
+    track.innerHTML=slides.map(function(r){
+      return '<div class="rv-slide"><div class="rv-quote">"</div><p class="rv-text">'+r.text+'</p><div class="rv-footer"><div class="rv-avatar">'+rvInit(r.name)+'</div><div><p class="rv-name">'+r.name+'</p><div class="rv-stars">'+RV_STAR.repeat(r.rating||5)+'</div></div>'+(r.mero?'<span class="rv-source">Mero</span>':'')+'</div></div>';
+    }).join('');
+    dots.innerHTML='';
+    slides.forEach(function(_,i){
+      var d=document.createElement('button');
+      d.className='rv-dot'+(i===0?' active':'');
+      d.onclick=(function(ii){return function(){rvGo(ii);clearInterval(rvTimer);rvAuto();};})(i);
+      dots.appendChild(d);
+    });
+    var sa=document.createElement('button');
+    sa.className='rv-see-all';sa.textContent='Vezi toate';sa.onclick=rvOpenModal;
+    dots.appendChild(sa);
+  }
+  function rvGo(n){
+    var slides=rvAll.slice(0,RV_SLIDER);
+    rvCur=(n+slides.length)%slides.length;
+    document.getElementById('rvTrack').style.transform='translateX(-'+(rvCur*100)+'%)';
+    document.querySelectorAll('.rv-dot').forEach(function(d,i){d.classList.toggle('active',i===rvCur);});
+  }
+  function rvAuto(){clearInterval(rvTimer);rvTimer=setInterval(function(){rvGo(rvCur+1);},4500);}
+  var rvTX=0;
+  document.getElementById('rvWrap')?.addEventListener('touchstart',function(e){rvTX=e.touches[0].clientX;clearInterval(rvTimer);},{passive:true});
+  document.getElementById('rvWrap')?.addEventListener('touchend',function(e){var d=rvTX-e.changedTouches[0].clientX;if(Math.abs(d)>40)rvGo(rvCur+(d>0?1:-1));rvAuto();},{passive:true});
+  document.querySelectorAll('.rv-star-btn').forEach(function(b){
+    b.addEventListener('click',function(){
+      rvStars=parseInt(b.dataset.v);
+      document.querySelectorAll('.rv-star-btn').forEach(function(s,i){s.classList.toggle('on',i<rvStars);});
+    });
+  });
+  function rvCheckAuth(){
+    // Reset state
+    document.getElementById('rvLoading').style.display='none';
+    document.getElementById('rvFormBox').style.display='none';
+    document.getElementById('rvLoginBox').style.display='none';
+    document.getElementById('rvSuccessBox').style.display='none';
+    sb.auth.getSession().then(function(res){
+      var session=res&&res.data&&res.data.session;
+      if(session){
+        document.getElementById('rvFormBox').style.display='block';
+      } else {
+        document.getElementById('rvLoginBox').style.display='block';
+      }
+    }).catch(function(){
+      document.getElementById('rvLoginBox').style.display='block';
+    });
+  }
+  function rvSubmit(){
+    sb.auth.getSession().then(function(res){
+      var session=res&&res.data&&res.data.session;
+      if(!session)return;
+      if(!rvStars){alert('Te rugam sa selectezi un numar de stele.');return;}
+      var text=document.getElementById('rvText').value.trim();
+      if(!text){document.getElementById('rvText').focus();return;}
+      var svc=document.getElementById('rvSvc').value;
+      sb.from('profiles').select('nume').eq('id',session.user.id).single().then(function(pr){
+        var nume=(pr.data&&pr.data.nume)||session.user.email.split('@')[0]||'Clienta';
+        var descriere=svc?('['+svc+'] '+text):text;
+        sb.from('recenzii').insert({
+          user_id:session.user.id,
+          artist_id:'360925df-6f66-462e-9d69-24321086fb7f',
+          nume_client:nume,
+          rating:rvStars,
+          descriere:descriere||'',
+          sursa:'site'
+        }).then(function(ins){
+          if(ins.error){alert('Eroare: '+ins.error.message);return;}
+          document.getElementById('rvFormBox').style.display='none';
+          document.getElementById('rvSuccessBox').style.display='block';
+          // Adauga recenzia imediat in slider si actualizeaza contorul
+          rvAll.unshift({name:nume,text:descriere,rating:rvStars,mero:false});
+          rvSiteCount++;
+          document.getElementById('rvCount').textContent='('+(RV_BASE+rvSiteCount)+' evaluari)';
+          clearInterval(rvTimer);
+          rvCur=0;
+          rvBuild();
+          rvAuto();
+        });
+      });
+    });
+  }
+  function rvOpenModal(){document.getElementById('rvModal').classList.add('open');rvRenderModal('all');}
+  function rvCloseModal(){document.getElementById('rvModal').classList.remove('open');}
+  document.addEventListener('DOMContentLoaded',function(){const m=document.getElementById('rvModal');if(m)m.addEventListener('click',function(e){if(e.target===m)rvCloseModal();});});
+  function rvFilter(f,btn){document.querySelectorAll('.rv-chip').forEach(function(c){c.classList.remove('active');});btn.classList.add('active');rvRenderModal(f);}
+  function rvRenderModal(f){
+    var list=rvAll.slice();
+    if(f==='5')list=list.filter(function(r){return(r.rating||5)===5;});
+    else if(f==='4')list=list.filter(function(r){return(r.rating||5)===4;});
+    else if(f==='3')list=list.filter(function(r){return(r.rating||5)===3;});
+    else if(f==='desc')list.sort(function(a,b){return(b.rating||5)-(a.rating||5);});
+    else if(f==='asc')list.sort(function(a,b){return(a.rating||5)-(b.rating||5);});
+    else if(f==='new')list=list.slice().sort(function(a,b){return a.mero?1:-1;});
+    var el=document.getElementById('rvModalList');
+    if(!list.length){el.innerHTML='<p style="text-align:center;color:var(--muted);font-size:14px;padding:20px">Nicio recenzie pentru acest filtru.</p>';return;}
+    el.innerHTML=list.map(function(r){
+      var rt=r.rating||5;
+      return '<div class="rv-card"><div class="rv-card-head"><div class="rv-card-av">'+rvInit(r.name)+'</div><div><p class="rv-card-name">'+r.name+'</p><div class="rv-card-stars">'+RV_STAR.repeat(rt)+RV_STAR_E.repeat(5-rt)+'</div></div>'+(r.mero?'<span class="rv-card-src">Mero</span>':'')+'</div><p class="rv-card-text">'+r.text+'</p></div>';
+    }).join('');
+  }
+  rvBuild();
+  rvAuto();
+  </script>
+
+  <!-- FOOTER -->
+  <div class="footer-section">
+    <p class="section-title">Locația mea</p>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:1rem">Te aștept la salon!</p>
+    <a href="https://www.google.com/maps/search/Strada+Mihai+Eminescu+34+Suceava+Romania" target="_blank" style="display:block;text-decoration:none;margin-bottom:1rem">
+      <div style="border-radius:14px;overflow:hidden;border:1px solid var(--border)">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d332.9198725287653!2d26.252157948244008!3d47.64461674537301!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sro!2sro!4v1776545887242!5m2!1sro!2sro" width="100%" height="180" style="border:0;display:block" allowfullscreen="" loading="lazy"></iframe>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;margin-top:10px;padding:12px 14px;background:var(--gold-light);border-radius:10px;border:1px solid var(--border)">
+        <span style="font-size:18px">📍</span>
+        <div>
+          <p style="font-size:14px;font-weight:500;color:var(--dark)">Strada Mihai Eminescu, nr.34</p>
+          <p style="font-size:13px;color:var(--muted)">Suceava · Click pentru direcții</p>
+        </div>
+        <span style="margin-left:auto;font-size:13px;color:var(--rose);font-weight:500">↗</span>
+      </div>
+    </a>
+    <div style="background:var(--gold-light);border-radius:14px;padding:1.25rem;margin-top:1rem;border:1px solid var(--border)">
+      <p style="font-size:14px;font-weight:500;color:var(--dark);margin-bottom:6px">Ai întrebări sau dorești o programare personalizată?</p>
+      <a href="https://www.instagram.com/stanciu.naomi.nails" target="_blank" style="display:flex;align-items:center;gap:10px;text-decoration:none;background:var(--white);border-radius:10px;padding:10px 14px;border:1px solid var(--border)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C4788A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+        <div>
+          <p style="font-size:14px;font-weight:500;color:var(--dark)">@stanciu.naomi.nails</p>
+          <p style="font-size:12px;color:var(--muted)">Încerc să răspund cât de repede pot ❤️</p>
+        </div>
+        <span style="margin-left:auto;font-size:13px;color:var(--rose)">↗</span>
+      </a>
+    </div>
+    <p style="font-size:12px;color:var(--muted);text-align:center;margin-top:1.5rem">© 2025 Naomi Stanciu Nails · Suceava</p>
+  </div>
+</div>
+
+<!-- STEP 1 -->
+<div class="page" id="p1">
+  <div class="bk-hdr"><button class="app-back" onclick="aHome()"><svg viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="1.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button><span class="app-bktitle">Alege serviciul</span><div style="width:38px"></div></div>
+  <nav class="nav"><div class="nav-logo" onclick="goHome()">Naomi<span>Stanciu</span></div><button class="btn-back" onclick="goHome()">← Înapoi</button></nav>
+  <div class="steps-wrap"><div class="step-indicator"><div class="step-dot done"></div><div class="step-dot"></div><div class="step-dot"></div><div class="step-dot"></div></div></div>
+  <div class="wrap" style="padding-top:0">
+    <p class="page-title">Alege serviciul</p>
+    <p class="page-sub">Atinge pentru a selecta</p>
+    <div id="service-list"></div>
+  </div>
+</div>
+
+<!-- STEP 2 -->
+<div class="page" id="p2">
+  <div class="bk-hdr"><button class="app-back" onclick="showPage('p1')"><svg viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="1.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button><span class="app-bktitle">Alege data</span><div style="width:38px"></div></div>
+  <nav class="nav"><div class="nav-logo" onclick="goHome()">Naomi<span>Stanciu</span></div><button class="btn-back" onclick="showPage('p1')">← Înapoi</button></nav>
+  <div class="steps-wrap"><div class="step-indicator"><div class="step-dot done"></div><div class="step-dot done"></div><div class="step-dot"></div><div class="step-dot"></div></div></div>
+  <div class="wrap" style="padding-top:0">
+    <p class="page-title">Alege data</p>
+    <p class="page-sub" id="sub2"></p>
+    <div class="cal-header"><button class="cal-nav" onclick="prevM()">&#8249;</button><span class="cal-title" id="cal-title"></span><button class="cal-nav" onclick="nextM()">&#8250;</button></div>
+    <div class="cal-grid" id="cal-grid"></div>
+    <div id="slots-wrap" style="display:none">
+      <p style="font-size:14px;font-weight:500;color:var(--dark);margin-bottom:10px">Ore disponibile</p>
+      <div id="slots-container"></div>
+    </div>
+    <button class="btn" id="btn2" disabled onclick="showPage('p3');renderSummary()">Continuă</button>
+  </div>
+</div>
+
+<!-- STEP 3 -->
+<div class="page" id="p3">
+  <div class="bk-hdr"><button class="app-back" onclick="showPage('p2')"><svg viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="1.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button><span class="app-bktitle">Confirmă</span><div style="width:38px"></div></div>
+  <nav class="nav"><div class="nav-logo" onclick="goHome()">Naomi<span>Stanciu</span></div><button class="btn-back" onclick="showPage('p2')">← Înapoi</button></nav>
+  <div class="steps-wrap"><div class="step-indicator"><div class="step-dot done"></div><div class="step-dot done"></div><div class="step-dot done"></div><div class="step-dot"></div></div></div>
+  <div class="wrap" style="padding-top:0">
+    <p class="page-title">Confirmă programarea</p>
+    <p class="page-sub">Verifică detaliile</p>
+    <div class="summary-card" id="summary"></div>
+    <label>Observații (opțional)</label>
+    <textarea id="obs" placeholder="ex: prima vizită, preferințe de culoare..."></textarea>
+    <button class="btn" id="btn-send" onclick="sendBooking()">Trimite cererea</button>
+  </div>
+</div>
+
+<!-- STEP 4 -->
+<div class="page" id="p4">
+  <div class="bk-hdr"><button class="app-back" onclick="aHome()"><svg viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="1.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button><span class="app-bktitle">Confirmare</span><div style="width:38px"></div></div>
+  <nav class="nav"><div class="nav-logo" onclick="goHome()">Naomi<span>Stanciu</span></div></nav>
+  <div class="steps-wrap"><div class="step-indicator"><div class="step-dot done"></div><div class="step-dot done"></div><div class="step-dot done"></div><div class="step-dot done"></div></div></div>
+  <div class="wrap" style="padding-top:0;text-align:center">
+    <div class="success-icon">✓</div>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:500;color:var(--dark);margin-bottom:8px">Cerere trimisă!</p>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:1.5rem">Vei fi contactată în scurt timp pentru confirmare.</p>
+    <div class="summary-card" id="final-summary" style="text-align:left"></div>
+    <button class="btn" onclick="showHistory()">Programările mele</button>
+    <button class="btn btn-ghost" onclick="goHome()">Înapoi acasă</button>
+  </div>
+</div>
+
+<!-- HISTORY -->
+<div class="page" id="phist">
+  <div class="bk-hdr"><button class="app-back" onclick="aHome()"><svg viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="1.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button><span class="app-bktitle">Programările mele</span><div style="width:38px"></div></div>
+  <nav class="nav"><div class="nav-logo" onclick="goHome()">Naomi<span>Stanciu</span></div><button class="btn-back" onclick="goHome()">← Înapoi</button></nav>
+  <div class="wrap">
+    <p class="page-title">Programările mele</p>
+    <p class="page-sub" id="hist-name"></p>
+    <div class="tab-bar">
+      <button class="tab-btn active" id="htab-v" onclick="setHistTab('viitoare')">Viitoare</button>
+      <button class="tab-btn" id="htab-t" onclick="setHistTab('toate')">Toate</button>
+    </div>
+    <div id="hist-list"></div>
+    <button class="btn btn-ghost" onclick="startBooking()" style="margin-top:8px">Rezervă programare nouă</button>
+  </div>
+</div>
+
+<!-- PROFILE -->
+<div class="page" id="pprofile">
+  <div class="bk-hdr"><button class="app-back" onclick="aPg('pg-prof')"><svg viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="1.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button><span class="app-bktitle">Profilul meu</span><div style="width:38px"></div></div>
+  <nav class="nav"><div class="nav-logo" onclick="goHome()">Naomi<span>Stanciu</span></div><button class="btn-back" onclick="goHome()">← Înapoi</button></nav>
+  <div class="profile-view-wrap">
+    <p class="page-title">Profilul meu</p>
+    <div style="text-align:center;margin:1.5rem 0 2rem">
+      <div style="position:relative;width:80px;margin:0 auto 12px">
+        <div id="pv-avatar" style="width:80px;height:80px;border-radius:50%;background:var(--gold-light);border:2px solid var(--rose);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--rose);overflow:hidden"></div>
+        <label for="avatar-upload" style="position:absolute;bottom:0;right:0;width:26px;height:26px;background:var(--rose);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;border:2px solid var(--cream)"><span style="color:#fff;font-size:14px">+</span></label>
+        <input type="file" id="avatar-upload" accept="image/*" style="display:none" onchange="uploadAvatar(this)">
+      </div>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--dark)" id="pv-name"></p>
+    </div>
+    <div id="pv-view">
+      <div style="display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--border)"><span style="font-size:13px;color:var(--muted)">Telefon</span><span style="font-size:14px;font-weight:500;color:var(--dark)" id="pv-phone"></span></div>
+      <div style="display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--border)"><span style="font-size:13px;color:var(--muted)">Email</span><span style="font-size:14px;font-weight:500;color:var(--dark)" id="pv-email"></span></div>
+      <button class="btn" style="margin-top:1.5rem" onclick="showProfileEdit()">Editează datele</button>
+    </div>
+    <div id="pv-edit" style="display:none">
+      <label>Nume și prenume</label><input type="text" id="pe-name">
+      <label>Număr de telefon</label><input type="tel" id="pe-phone">
+      <label>Email</label><input type="email" id="pe-email">
+      <label>Parolă curentă <span style="font-size:11px;color:var(--muted)">(necesară pentru a salva)</span></label>
+      <input type="password" id="pe-pass" placeholder="Parola ta curentă">
+      <div id="pe-error" class="error-msg" style="display:none"></div>
+      <div id="pe-success" class="success-msg" style="display:none"></div>
+      <button class="btn" onclick="saveProfile()">Salvează</button>
+      <button class="btn btn-ghost" onclick="showProfileView()">Anulează</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const SB_URL='https://jijvszvsqnmtcqhcqtyo.supabase.co';
+const SB_KEY='sb_publishable_PBs1sC8MYRAlLCqAM5I6MA_jZVc5r7v';
+const sb=supabase.createClient(SB_URL,SB_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+rvLoadSite();
+rvCheckAuth();
+
+const SVCS=[
+  {id:1,name:"Ojă semipermanentă",dur:1.5,price:130},
+  {id:2,name:"Construcție unghii scurte/medii",dur:2.5,price:180},
+  {id:3,name:"Întreținere complexă unghii scurte",dur:2,price:170},
+  {id:4,name:"Arhitectură SLIM",dur:2.5,price:200},
+  {id:5,name:"Pachet curățare + demontare",dur:1,price:80},
+  {id:6,name:"Întreținere complexă unghii medii",dur:2,price:200},
+  {id:7,name:"Man Manicure",dur:0.5,price:60}
+];
+const GAL=[
+  {id:1,sid:1,name:"Ojă semipermanentă",img:"poze/oja.jpeg"},
+  {id:2,sid:2,name:"Construcție scurte/medii",img:"poze/constructie.jpeg"},
+  {id:3,sid:3,name:"Întreținere complexă scurte",img:"poze/intretinere-scurte.jpeg"},
+  {id:4,sid:4,name:'Arhitectură <span style="font-weight:200;letter-spacing:2px">SLIM</span>',img:"poze/arhitectura.jpeg"},
+  {id:5,sid:6,name:"Întreținere complexă medii",img:"poze/intretinere-medii.jpeg"},
+  {id:6,sid:7,name:"Man Manicure",img:"poze/manicure.jpeg"}
+];
+const MONTHS=["Ianuarie","Februarie","Martie","Aprilie","Mai","Iunie","Iulie","August","Septembrie","Octombrie","Noiembrie","Decembrie"];
+const DS=["Lu","Ma","Mi","Jo","Vi","Sâ","Du"];
+const DL=["luni","marți","miercuri","joi","vineri","sâmbătă","duminică"];
+const MG=["ianuarie","februarie","martie","aprilie","mai","iunie","iulie","august","septembrie","octombrie","noiembrie","decembrie"];
+const WS=10,WE=18;
+
+let cu=null,cp=null;
+let selSvc=null,selDate=null,selSlot=null;
+let vy,vm,bSrc='clasic',repId=null,hTab='viitoare';
+const tod=new Date();vy=tod.getFullYear();vm=tod.getMonth();
+
+function dk(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function fd(ds){const d=new Date(ds+'T12:00:00');const day=d.getDay();return DL[day===0?6:day-1]+', '+d.getDate()+' '+MG[d.getMonth()];}
+function dl(h){if(h<1)return(h*60)+' min';if(h===Math.floor(h))return h+' ore';return Math.floor(h)+' ore '+(h%1)*60+' min';}
+function np(p){return p.replace(/\s/g,'').replace(/^(\+40|0040)/,'0');}
+function isEm(s){return s.includes('@');}
+
+function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
+function goHome(){renderHome();showPage('phome');}
+
+// DROPDOWN
+function toggleDropdown(){
+  const m=document.getElementById('dd-menu');
+  m.classList.toggle('open');
+  if(m.classList.contains('open')){
+    setTimeout(()=>{
+      document.addEventListener('click',function outside(e){
+        if(!document.getElementById('dd-btn').contains(e.target)&&!m.contains(e.target)){
+          m.classList.remove('open');
+          document.removeEventListener('click',outside);
+        }
+      });
+    },10);
+  }
+}
+function closeDropdown(){document.getElementById('dd-menu').classList.remove('open');}
+
+// THEME
+function toggleTheme(){
+  const isDark=document.body.classList.toggle('dark');
+  localStorage.setItem('theme',isDark?'dark':'light');
+  updateThemeBtn();
+}
+function loadTheme(){
+  if(localStorage.getItem('theme')==='dark')document.body.classList.add('dark');
+  updateThemeBtn();
+}
+function updateThemeBtn(){
+  const btn=document.getElementById('dd-theme');
+  if(btn)btn.textContent=document.body.classList.contains('dark')?'☀️ Light mode':'🌑 Dark mode';
+}
+
+// AUTH STATE
+async function init(){
+  loadTheme();
+  const hash=window.location.hash;
+  if(hash&&hash.includes('type=recovery')){showResetModal();return;}
+  const{data:{session}}=await sb.auth.getSession();
+  if(session){cu=session.user;await loadProf();}
+  updNav();
+  renderHome();
+  showPage('phome');
+}
+
+async function loadProf(){
+  try{
+    const{data}=await sb.from('profiles').select('*').eq('id',cu.id).single();
+    cp=data;
+  }catch(e){}
+  updNav();
+}
+
+function updNav(){
+  const li=!!cu&&!!cp;
+  // Avatar
+  const av=document.getElementById('nav-avatar');
+  const nm=document.getElementById('nav-name');
+  if(li&&cp){
+    nm.textContent=(cp.nume||'').split(' ')[0]||'Cont';
+    av.style.display='flex';
+    setAvatarEl(av,cp);
+  } else {
+    nm.textContent='Cont';
+    av.style.display='none';
+  }
+  // Dropdown items
+  ['dd-profil','dd-prog','dd-sep-top','dd-logout'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el)el.style.display=li?'block':'none';
+  });
+  document.getElementById('dd-login').style.display=li?'none':'block';
+  updateThemeBtn();
+}
+
+function setAvatarEl(el,profile){
+  if(!el)return;
+  if(profile&&profile.avatar_url){
+    const img=new Image();
+    img.onload=()=>{el.innerHTML='<img src="'+profile.avatar_url+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%">';};
+    img.onerror=()=>{setInitials(el,profile);};
+    img.src=profile.avatar_url;
+  } else {
+    setInitials(el,profile);
+  }
+}
+function setInitials(el,profile){
+  el.innerHTML='';
+  el.textContent=(profile&&profile.nume||'?').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+}
+
+// LOGIN MODAL
+function showLoginModal(afterFn){
+  closeLoginModal();
+  window._afterLogin=afterFn||null;
+  const o=document.createElement('div');
+  o.className='login-modal-overlay';o.id='login-overlay';
+  o.innerHTML=`<div class="login-modal">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem">
+      <p style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--dark)">Contul meu</p>
+      <button onclick="closeLoginModal()" style="background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted)">✕</button>
+    </div>
+    <div style="display:flex;margin-bottom:1.5rem;border-bottom:1px solid var(--border)">
+      <button id="lm-tab-in" style="flex:1;padding:10px;text-align:center;font-size:14px;cursor:pointer;color:var(--rose);background:none;border:none;font-family:'Jost',sans-serif;border-bottom:2px solid var(--rose);margin-bottom:-1px;font-weight:500" onclick="lmTab('in')">Cont existent</button>
+      <button id="lm-tab-reg" style="flex:1;padding:10px;text-align:center;font-size:14px;cursor:pointer;color:var(--muted);background:none;border:none;font-family:'Jost',sans-serif;border-bottom:2px solid transparent;margin-bottom:-1px" onclick="lmTab('reg')">Cont nou</button>
+    </div>
+    <!-- LOGIN -->
+    <div id="lm-login">
+      <label>Email sau număr de telefon</label>
+      <input type="text" id="lm-id" placeholder="email sau 0712345678" autocomplete="username">
+      <label>Parolă</label>
+      <input type="password" id="lm-pw" placeholder="parola ta" autocomplete="current-password">
+      <div id="lm-err" class="error-msg" style="display:none"></div>
+      <button class="btn" onclick="doLogin()">Intră în cont</button>
+      <button class="btn-link" onclick="lmTab('forgot')">Am uitat parola</button>
+    </div>
+    <!-- REGISTER -->
+    <div id="lm-reg" style="display:none">
+      <label>Nume și prenume</label><input type="text" id="lm-name" placeholder="ex: Maria Popescu" autocomplete="name">
+      <label>Număr de telefon</label><input type="tel" id="lm-phone" placeholder="ex: 0712 345 678" autocomplete="tel">
+      <label>Email <span style="font-size:11px;color:var(--muted);font-weight:400">(opțional — util dacă uiți parola)</span></label>
+      <input type="email" id="lm-email" placeholder="adresa@email.com" autocomplete="email">
+      <label>Parolă</label><input type="password" id="lm-regpw" placeholder="minim 6 caractere" autocomplete="new-password">
+      <div id="lm-reg-err" class="error-msg" style="display:none"></div>
+      <button class="btn" onclick="doRegister()">Creează cont</button>
+    </div>
+    <!-- FORGOT -->
+    <div id="lm-forgot" style="display:none">
+      <label>Email-ul contului</label>
+      <input type="email" id="lm-forgot-email" placeholder="adresa@email.com">
+      <div id="lm-forgot-err" class="error-msg" style="display:none"></div>
+      <div id="lm-forgot-ok" class="success-msg" style="display:none"></div>
+      <button class="btn" onclick="doForgot()">Trimite link resetare</button>
+      <button class="btn btn-ghost" onclick="lmTab('in')">Înapoi</button>
+    </div>
+  </div>`;
+  o.addEventListener('click',e=>{if(e.target===o)closeLoginModal();});
+  document.body.appendChild(o);
+}
+
+function closeLoginModal(){const o=document.getElementById('login-overlay');if(o)o.remove();}
+
+function lmTab(t){
+  ['in','reg','forgot'].forEach(x=>{
+    const el=document.getElementById('lm-'+x);if(el)el.style.display='none';
+    const tab=document.getElementById('lm-tab-'+x);
+    if(tab){tab.style.color=t===x?'var(--rose)':'var(--muted)';tab.style.borderBottomColor=t===x?'var(--rose)':'transparent';tab.style.fontWeight=t===x?'500':'400';}
+  });
+  const show=document.getElementById('lm-'+t);if(show)show.style.display='block';
+}
+
+async function doLogin(){
+  const id=document.getElementById('lm-id').value.trim();
+  const pw=document.getElementById('lm-pw').value;
+  const e=document.getElementById('lm-err');e.style.display='none';
+  if(!id||!pw){e.textContent='Completează toate câmpurile.';e.style.display='block';return;}
+  let em=id;
+  if(!isEm(id)){
+    const ph=np(id);
+    const{data:pr,error:pe}=await sb.from('profiles').select('email').eq('telefon',ph).single();
+    if(pe||!pr||!pr.email){e.textContent='Nu există cont cu acest număr de telefon.';e.style.display='block';return;}
+    em=pr.email;
+  }
+  const{data,error}=await sb.auth.signInWithPassword({email:em,password:pw});
+  if(error){e.textContent='Email/telefon sau parolă greșită.';e.style.display='block';return;}
+  cu=data.user;await loadProf();
+  closeLoginModal();
+  rvCheckAuth();
+  if(window._afterLogin){const fn=window._afterLogin;window._afterLogin=null;fn();}
+}
+
+async function doRegister(){
+  const nm=document.getElementById('lm-name').value.trim();
+  const ph=np(document.getElementById('lm-phone').value.trim());
+  const em=document.getElementById('lm-email').value.trim();
+  const pw=document.getElementById('lm-regpw').value;
+  const e=document.getElementById('lm-reg-err');e.style.display='none';
+  if(!nm||!ph||!pw){e.textContent='Completează câmpurile obligatorii.';e.style.display='block';return;}
+  if(pw.length<6){e.textContent='Parola trebuie să aibă minim 6 caractere.';e.style.display='block';return;}
+  const{data:exProfile}=await sb.from('profiles').select('id,email').eq('telefon',ph);
+  const profileExistent=exProfile&&exProfile.length>0?exProfile[0]:null;
+  if(profileExistent&&profileExistent.email&&!profileExistent.email.includes('@naomi.local')){
+    e.textContent='Acest număr este deja asociat unui cont. Recuperează accesul prin email.';
+    e.style.display='block';
+    setTimeout(()=>showTab('forgot'),2000);
+    return;
+  }
+  const emailFinal=em||(ph+'@naomi.local');
+  const{data,error}=await sb.auth.signUp({email:emailFinal,password:pw});
+  if(error){e.textContent=error.message;e.style.display='block';return;}
+  cu=data.user;
+  if(profileExistent){
+    await sb.from('programari').update({user_id:cu.id}).eq('telefon',ph);
+    await sb.from('profiles').delete().eq('id',profileExistent.id);
+  }
+  await sb.from('profiles').insert({id:cu.id,nume:nm,telefon:ph,email:em||null,rol:'client'});
+  await loadProf();
+  closeLoginModal();
+  rvCheckAuth();
+  if(window._afterLogin){const fn=window._afterLogin;window._afterLogin=null;fn();}
+}
+
+async function doForgot(){
+  const em=document.getElementById('lm-forgot-email').value.trim();
+  const er=document.getElementById('lm-forgot-err');const ok=document.getElementById('lm-forgot-ok');
+  er.style.display='none';ok.style.display='none';
+  if(!em){er.textContent='Introdu emailul.';er.style.display='block';return;}
+  const{error}=await sb.auth.resetPasswordForEmail(em,{redirectTo:'https://lovely-beijinho-26224d.netlify.app/'});
+  if(error){er.textContent=error.message;er.style.display='block';return;}
+  ok.textContent='Link trimis! Verifică și spam-ul.';ok.style.display='block';
+}
+
+function showResetModal(){
+  const o=document.createElement('div');o.className='login-modal-overlay';
+  o.innerHTML=`<div class="login-modal">
+    <p style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--dark);margin-bottom:1rem">Parolă nouă</p>
+    <label>Parolă nouă</label><input type="password" id="rp1" placeholder="minim 6 caractere">
+    <label>Confirmă parola</label><input type="password" id="rp2">
+    <div id="rp-err" class="error-msg" style="display:none"></div>
+    <button class="btn" onclick="doReset()">Salvează</button>
+  </div>`;
+  document.body.appendChild(o);
+  renderHome();showPage('phome');
+}
+
+async function doReset(){
+  const p1=document.getElementById('rp1').value;const p2=document.getElementById('rp2').value;
+  const e=document.getElementById('rp-err');e.style.display='none';
+  if(p1.length<6){e.textContent='Minim 6 caractere.';e.style.display='block';return;}
+  if(p1!==p2){e.textContent='Parolele nu coincid.';e.style.display='block';return;}
+  const{error}=await sb.auth.updateUser({password:p1});
+  if(error){e.textContent=error.message;e.style.display='block';return;}
+  window.location.hash='';
+  document.querySelector('.login-modal-overlay')?.remove();
+  alert('Parola schimbată cu succes!');
+}
+
+async function doLogout(){
+  await sb.auth.signOut();
+  cu=null;cp=null;
+  updNav();
+  rvCheckAuth();
+  // Daca e pe pagina de profil sau programari, du-l la home
+  showPage('p0');
+}
+
+// HOME
+function renderHome(){
+  // Gallery
+  document.getElementById('gallery-grid').innerHTML=GAL.map(g=>{
+    const s=SVCS.find(x=>x.id===g.sid);
+    return`<div class="gal-item" onclick="startBookingSvc(${g.sid})">
+      <div class="gal-img" style="background-image:url(${g.img});background-size:cover;background-position:center bottom"></div>
+      <div class="gal-ov"><div class="gal-ov-name">${g.name}</div></div>
+    </div>`;
+  }).join('');
+  // Services
+  document.getElementById('svc-list-home').innerHTML=SVCS.map(s=>`
+    <div class="svc-row">
+      <div><div style="font-size:14px;color:var(--dark)">${s.name}</div><div style="font-size:12px;color:var(--muted)">${dl(s.dur)}</div></div>
+      <div style="font-size:14px;font-weight:500;color:var(--rose)">${s.price} lei</div>
+    </div>`).join('');
+}
+
+// BOOKING
+function startBooking(){
+  bSrc='clasic';selSvc=null;selDate=null;selSlot=null;repId=null;
+  document.getElementById('service-list').innerHTML=SVCS.map(s=>`
+    <div class="service-card" onclick="pickSvc(${s.id})">
+      <div><div class="sname">${s.name}</div><div class="sdur">${dl(s.dur)}</div></div>
+      <div class="sprice">${s.price} lei</div>
+    </div>`).join('');
+  showPage('p1');
+}
+function startBookingSvc(sid){
+  bSrc='galerie';selSvc=SVCS.find(s=>s.id===sid);selDate=null;selSlot=null;repId=null;
+  document.getElementById('sub2').textContent=selSvc.name+' · '+dl(selSvc.dur)+' · '+selSvc.price+' lei';
+  document.getElementById('btn2').disabled=true;
+  document.getElementById('slots-wrap').style.display='none';
+  renderCal();showPage('p2');
+}
+function pickSvc(id){
+  selSvc=SVCS.find(s=>s.id===id);bSrc='clasic';selDate=null;selSlot=null;
+  document.getElementById('sub2').textContent=selSvc.name+' · '+dl(selSvc.dur)+' · '+selSvc.price+' lei';
+  document.getElementById('btn2').disabled=true;
+  document.getElementById('slots-wrap').style.display='none';
+  renderCal();showPage('p2');
+}
+function renderCal(){
+  document.getElementById('cal-title').textContent=MONTHS[vm]+' '+vy;
+  const g=document.getElementById('cal-grid');
+  g.innerHTML=DS.map(d=>`<div class="cal-lbl">${d}</div>`).join('');
+  const first=new Date(vy,vm,1);let sd=first.getDay()-1;if(sd<0)sd=6;
+  const dim=new Date(vy,vm+1,0).getDate();
+  for(let i=0;i<sd;i++)g.innerHTML+=`<div class="cal-day empty"></div>`;
+  for(let d=1;d<=dim;d++){
+    const dt=new Date(vy,vm,d);const isSun=dt.getDay()===0;const isSat=dt.getDay()===6;
+    const isPast=dt<new Date(tod.getFullYear(),tod.getMonth(),tod.getDate());
+    const dis=isPast||isSun||isSat;
+    const isT=dt.toDateString()===tod.toDateString();
+    const isSel=selDate&&dt.toDateString()===selDate.toDateString();
+    let cls='cal-day';
+    if(dis)cls+=' dis';if(isT&&!dis&&!isSel)cls+=' tod';if(isSel)cls+=' sel';
+    g.innerHTML+=`<div class="${cls}" ${dis?'':` onclick="pickDay(${d})"`}>${d}</div>`;
+  }
+}
+function pickDay(d){
+  selDate=new Date(vy,vm,d);selSlot=null;
+  document.getElementById('btn2').disabled=true;
+  renderCal();document.getElementById('slots-wrap').style.display='block';loadSlots();
+}
+async function loadSlots(){
+  const c=document.getElementById('slots-container');
+  c.innerHTML='<div style="text-align:center;padding:1rem;color:var(--muted);font-size:13px">Se verifică orele...</div>';
+  const{data}=await sb.from('programari').select('ora,durata,status,id').eq('data',dk(selDate)).neq('status','anulat');
+  const bl=new Set();
+  if(data){data.forEach(p=>{if(repId&&p.id===repId)return;const[h,m]=p.ora.split(':').map(Number);const sh=h+m/60;const eh=sh+parseFloat(p.durata);for(let t=WS;t<WE;t+=0.5){if(t<eh&&t+selSvc.dur>sh)bl.add(t);}});}
+  const isSat=selDate.getDay()===6;const eh=isSat?12:WE;const slots=[];
+  for(let h=WS;h+selSvc.dur<=eh;h+=0.5){const taken=bl.has(h);const hh=Math.floor(h).toString().padStart(2,'0');const mm=h%1===0?'00':'30';slots.push({time:hh+':'+mm,taken});}
+  if(!slots.length){c.innerHTML='<p style="font-size:13px;color:var(--muted)">Nu sunt ore disponibile.</p>';return;}
+  c.innerHTML='<div class="slots-grid">'+slots.map(s=>`<div class="slot${s.taken?' taken':''}" ${s.taken?'':` onclick="pickSlot('${s.time}')"`}>${s.time}</div>`).join('')+'</div>';
+}
+function pickSlot(s){
+  selSlot=s;
+  document.querySelectorAll('.slot:not(.taken)').forEach(el=>{el.classList.remove('sel');if(el.textContent===s)el.classList.add('sel');});
+  document.getElementById('btn2').disabled=false;
+}
+function prevM(){if(vm===0){vm=11;vy--;}else vm--;renderCal();}
+function nextM(){if(vm===11){vm=0;vy++;}else vm++;renderCal();}
+
+function renderSummary(){
+  document.getElementById('summary').innerHTML=
+    `<div class="srow"><span>Serviciu</span><span>${selSvc.name}</span></div>`+
+    `<div class="srow"><span>Data</span><span>${fd(dk(selDate))}</span></div>`+
+    `<div class="srow"><span>Ora</span><span>${selSlot}</span></div>`+
+    `<div class="srow"><span>Durată</span><span>${dl(selSvc.dur)}</span></div>`+
+    `<div class="srow total"><span>Total</span><span>${selSvc.price} lei</span></div>`;
+}
+
+async function sendBooking(){
+  if(!cu||!cp){
+    showLoginModal(sendBooking);
+    return;
+  }
+  const btn=document.getElementById('btn-send');
+  btn.disabled=true;btn.textContent='Se trimite...';
+  const obs=document.getElementById('obs').value.trim();
+  if(repId){await sb.from('programari').update({status:'anulat'}).eq('id',repId);repId=null;}
+  const{error}=await sb.from('programari').insert({
+    user_id:cu.id,nume:cp.nume,telefon:cp.telefon,
+    serviciu:selSvc.name,durata:selSvc.dur,pret:selSvc.price,
+    data:dk(selDate),ora:selSlot,observatii:obs,status:'in_asteptare',sursa:bSrc
+  });
+  btn.disabled=false;btn.textContent='Trimite cererea';
+  if(error){alert('Eroare: '+error.message);return;}
+  document.getElementById('final-summary').innerHTML=
+    `<div class="srow"><span>Serviciu</span><span>${selSvc.name}</span></div>`+
+    `<div class="srow"><span>Data</span><span>${fd(dk(selDate))}</span></div>`+
+    `<div class="srow total"><span>Total</span><span>${selSvc.price} lei</span></div>`;
+  showPage('p4');
+}
+
+// HISTORY
+async function showHistory(){
+  if(!cu||!cp){showLoginModal(showHistory);return;}
+  showPage('phist');
+  if(cp)document.getElementById('hist-name').textContent=cp.nume||'';
+  await loadHist();
+}
+async function loadHist(){
+  document.getElementById('hist-list').innerHTML='<div style="text-align:center;padding:2rem;color:var(--muted);font-size:14px">Se încarcă...</div>';
+  let q=sb.from('programari').select('*').eq('user_id',cu.id).order('data',{ascending:false});
+  if(hTab==='viitoare')q=q.gte('data',dk(tod)).neq('status','anulat');
+  const{data}=await q;
+  if(!data||!data.length){document.getElementById('hist-list').innerHTML='<div style="text-align:center;padding:2rem;color:var(--muted);font-size:14px">Nicio programare.</div>';return;}
+  const tk=dk(tod);
+  document.getElementById('hist-list').innerHTML=data.map(p=>{
+    const bc=p.status==='confirmat'?'confirmat':p.status==='anulat'?'anulat':'asteptare';
+    const bt=p.status==='confirmat'?'Confirmat':p.status==='anulat'?'Anulat':'În așteptare';
+    const canAct=p.data>=tk&&p.status!=='anulat';
+    return`<div class="hist-card">
+      <div style="background:${bc==='asteptare'?'#FFF3CD':bc==='confirmat'?'#D1F2E1':'#FDECEA'};padding:8px 14px;font-size:11px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;color:${bc==='asteptare'?'#856404':bc==='confirmat'?'#1A6B3C':'#A32D2D'};box-shadow:0 3px 6px rgba(0,0,0,0.1)">${bt}</div>
+      <div style="padding:1rem 1.25rem">
+        <div style="font-size:15px;font-weight:500;color:var(--dark);margin-bottom:4px">${p.serviciu}</div>
+        <div style="font-size:13px;color:var(--muted)">${fd(p.data)} · ${p.ora}</div>
+        ${canAct?`<div style="display:flex;gap:8px;margin-top:10px">
+          <button style="padding:7px 14px;border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;font-family:'Jost',sans-serif;background:var(--gold-light);color:var(--dark);border:1px solid var(--border)" onclick="startReprog('${p.id}','${p.serviciu}')">Reprogramează</button>
+          <button style="padding:7px 14px;border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;font-family:'Jost',sans-serif;background:#FEF0F0;color:var(--red);border:1px solid var(--border)" onclick="anulProg('${p.id}')">Anulează</button>
+        </div>`:''}
+      </div>
+    </div>`;
+  }).join('');
+}
+async function anulProg(id){if(!confirm('Ești sigură că vrei să anulezi?'))return;await sb.from('programari').update({status:'anulat'}).eq('id',id);loadHist();}
+function startReprog(id,sn){repId=id;bSrc='clasic';selSvc=SVCS.find(s=>s.name===sn)||SVCS[0];selDate=null;selSlot=null;document.getElementById('sub2').textContent=selSvc.name+' · '+dl(selSvc.dur)+' · '+selSvc.price+' lei';document.getElementById('btn2').disabled=true;document.getElementById('slots-wrap').style.display='none';renderCal();showPage('p2');}
+function setHistTab(t){hTab=t;document.getElementById('htab-v').classList.toggle('active',t==='viitoare');document.getElementById('htab-t').classList.toggle('active',t==='toate');loadHist();}
+
+// PROFILE
+function showProfilePage(){
+  if(!cu||!cp){showLoginModal(showProfilePage);return;}
+  const initials=(cp.nume||'?').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+  const av=document.getElementById('pv-avatar');
+  if(cp.avatar_url){setAvatarEl(av,cp);}else{av.textContent=initials;}
+  document.getElementById('pv-name').textContent=cp.nume||'';
+  document.getElementById('pv-phone').textContent=cp.telefon||'—';
+  document.getElementById('pv-email').textContent=cp.email||'(necompletat)';
+  showProfileView();showPage('pprofile');
+}
+function showProfileView(){document.getElementById('pv-view').style.display='block';document.getElementById('pv-edit').style.display='none';}
+function showProfileEdit(){document.getElementById('pe-name').value=cp.nume||'';document.getElementById('pe-phone').value=cp.telefon||'';document.getElementById('pe-email').value=cp.email||'';document.getElementById('pe-pass').value='';document.getElementById('pe-error').style.display='none';document.getElementById('pe-success').style.display='none';document.getElementById('pv-view').style.display='none';document.getElementById('pv-edit').style.display='block';}
+async function saveProfile(){
+  const name=document.getElementById('pe-name').value.trim();
+  const phone=document.getElementById('pe-phone').value.trim();
+  const email=document.getElementById('pe-email').value.trim();
+  const pass=document.getElementById('pe-pass').value;
+  const errEl=document.getElementById('pe-error');const okEl=document.getElementById('pe-success');
+  errEl.style.display='none';okEl.style.display='none';
+  if(!pass){errEl.textContent='Introduceți parola curentă pentru a salva.';errEl.style.display='block';return;}
+  const{error:authErr}=await sb.auth.signInWithPassword({email:cp.email||email,password:pass});
+  if(authErr){errEl.textContent='Parolă incorectă.';errEl.style.display='block';return;}
+  await sb.from('profiles').update({nume:name,telefon:phone,email:email}).eq('id',cu.id);
+  cp.nume=name;cp.telefon=phone;cp.email=email;
+  updNav();document.getElementById('pv-name').textContent=name;document.getElementById('pv-phone').textContent=phone;document.getElementById('pv-email').textContent=email;
+  okEl.textContent='Datele au fost salvate!';okEl.style.display='block';
+  setTimeout(showProfileView,1500);
+}
+async function uploadAvatar(input){
+  const file=input.files[0];if(!file)return;
+  const ext=file.name.split('.').pop();const path=cu.id+'/avatar.'+ext;
+  const{error}=await sb.storage.from('avatars').upload(path,file,{upsert:true});
+  if(error){alert('Eroare la încărcare: '+error.message);return;}
+  const{data}=sb.storage.from('avatars').getPublicUrl(path);
+  const url=data.publicUrl+'?t='+Date.now();
+  await sb.from('profiles').update({avatar_url:url}).eq('id',cu.id);
+  cp.avatar_url=url;
+  setAvatarEl(document.getElementById('pv-avatar'),cp);
+  setAvatarEl(document.getElementById('nav-avatar'),cp);
+}
+
+
+init();
+</script>
+<div class="rv-modal-overlay" id="rvModal">
+    <div class="rv-modal">
+      <div class="rv-modal-head">
+        <h3>Toate recenziile</h3>
+        <button class="rv-modal-close" onclick="rvCloseModal()">&#x2715;</button>
+      </div>
+      <div class="rv-filters">
+        <button class="rv-chip active" onclick="rvFilter('all',this)">Toate</button>
+        <button class="rv-chip" onclick="rvFilter('new',this)">Cele mai noi</button>
+        <button class="rv-chip" onclick="rvFilter('5',this)">5 stele</button>
+        <button class="rv-chip" onclick="rvFilter('4',this)">4 stele</button>
+        <button class="rv-chip" onclick="rvFilter('3',this)">3 stele</button>
+        <button class="rv-chip" onclick="rvFilter('asc',this)">Rating crescator</button>
+        <button class="rv-chip" onclick="rvFilter('desc',this)">Rating descrescator</button>
+      </div>
+      <div class="rv-modal-list" id="rvModalList"></div>
+    </div>
+  </div>
+
+</body>
+</html>
